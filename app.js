@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 // realizar la conexión a la BD
-const bd = require('./infraestructure/bd');
+const bd = require('./infrastructure/bd');
 bd.conectar();
 
 const PUERTO = 3020;
