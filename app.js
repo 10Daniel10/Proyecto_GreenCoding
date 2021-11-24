@@ -1,7 +1,7 @@
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
-const typeDefs = require('./graphQL/typeDefs/usuarios.typedef');
-const resolvers = require('./graphQL/resolvers/usuarios.resolver');
+const typeDefs = require('./graphQL/typeDefs');
+const resolvers = require('./graphQL/resolvers');
 
 
 // realizar la conexión a la BD
