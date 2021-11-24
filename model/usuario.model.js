@@ -12,7 +12,8 @@ const usuarios = new Schema({
     },
     estado: {
         type: String,
-        default: 'Inactivo'
+        enum: ['Autorizado', 'NoAutorizado', 'Pendiente'],
+        default: 'Pendiente'
     },
     correo: {
         type: String,
@@ -24,6 +25,7 @@ const usuarios = new Schema({
     },
     tipo: {
         type: String,
+        enum: ['Administrador', 'Estudiante', 'Lider'],
         require: true
     }
 });

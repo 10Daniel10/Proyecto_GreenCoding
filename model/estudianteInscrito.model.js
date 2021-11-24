@@ -6,16 +6,14 @@ const estudianteInscrito = new Schema({
         type: Schema.Types.ObjectId,
         ref: "proyectos"
     },
-    idEstudiante: {
-        type: String,
-        required: true
-    },
-    nombreEstudiante: {
-        type: String,
-        require: true
+    estudiante: {
+        type: Schema.Types.ObjectId,
+        ref:"usuarios"
     },
     estado: {
-        type: String
+        type: String,
+        enum: ['Activo', 'Inactivo'],
+        default: 'Inactivo'
     },
     fechaIngreso: {
         type: Date

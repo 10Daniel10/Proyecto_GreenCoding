@@ -27,21 +27,20 @@ const proyectos = new Schema({
     fechaTermina: {
         type: Date
     },
-    idLider: {
-        type: String,
-        require: true
-    },
-    nombreLider: {
-        type: String,
+    lider: {
+        type: Schema.Types.ObjectId,
+        ref: "usuarios",
         require: true
     },
     estado: {
         type: String,
-        default: "inactivo"
+        enum: ['Activo', 'Inactivo'],
+        default: 'Inactivo'
     },
     fase: {
         type: String,
-        defauld: null
+        enum: ['Iniciado', 'EnDesarrollo', 'Terminado', 'Nulo'],
+        default: 'Nulo'
     },
     estudiantesInscritos: [
         estudianteInscrito
