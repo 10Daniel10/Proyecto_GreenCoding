@@ -13,6 +13,13 @@ const typeDefs = gql`
         obtenerUsuarios : [Usuario]
         obtenerUsuario: Usuario
     }
+
+    type Mutation {
+        setEstadoUsuario(
+            id: String!
+            estado: String!
+        ): String
+    }
 `
 
 module.exports = typeDefs;
