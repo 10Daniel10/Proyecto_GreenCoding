@@ -4,21 +4,18 @@ const avance = require('./avance.model');
 
 const proyectos = new Schema({
 
-    nombre: {
+    nombreProyecto: {
         type: String,
         require: true
     },
     objGeneral: {
-        type: String,
-        require: true
+        type: String
     },
     objEspecifico: {
-        type: String,
-        require: true
+        type: String
     },
     presupuesto: {
-        type: Number,
-        require: true
+        type: Number
     },
     fechaInicio: {
         type: Date,

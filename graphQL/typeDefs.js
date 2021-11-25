@@ -2,6 +2,8 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     
+    scalar Date
+
     enum EstadoUsuario {
         Autorizado
         NoAutorizado
@@ -23,6 +25,7 @@ const typeDefs = gql`
         Iniciado
         EnDesarrollo
         Terminado
+        Nulo
     }
     
     type Usuario {
@@ -35,26 +38,26 @@ const typeDefs = gql`
 
     type estudianteInscrito {
         estudiante: Usuario
-        idProyecto: Proyecto
+        proyecto: Proyecto
         estado: Estado
-        fechaIngreso: String
-        fechaEgreso: String
+        fechaIngreso: Date
+        fechaEgreso: Date
     }
 
     type avance {
         idProyecto: Proyecto
-        fechaAvance: String
+        fechaAvance: Date
         descripcion: String
         observacion: String
     }
 
     type Proyecto {
-        nombre: String!
-        objGeneral: String!
-        objEspecifico: String!
-        presupuesto: Int!
-        fechaInicio: String
-        fechaTermina: String
+        nombreProyecto: String!
+        objGeneral: String
+        objEspecifico: String
+        presupuesto: Int
+        fechaInicio: Date
+        fechaTermina: Date
         lider: Usuario
         estado: Estado
         fase: Fase
@@ -65,6 +68,7 @@ const typeDefs = gql`
     type Query {
         obtenerUsuarios : [Usuario]
         obtenerUsuario: Usuario
+        obtenerProyectos: [Proyecto]
     }
 
     type Mutation {

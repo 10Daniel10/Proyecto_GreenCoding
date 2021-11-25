@@ -2,7 +2,7 @@ const { Schema } = require('mongoose');
 
 const estudianteInscrito = new Schema({
 
-    idProyecto: {
+    proyecto: {
         type: Schema.Types.ObjectId,
         ref: "proyectos"
     },
