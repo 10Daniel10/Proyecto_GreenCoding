@@ -2,6 +2,11 @@ const { Schema } = require('mongoose');
 
 const estudianteInscrito = new Schema({
 
+    idEstudianteInscrito: {
+        type:String,
+        require: true,
+        unique: true
+    },
     proyecto: {
         type: Schema.Types.ObjectId,
         ref: "proyectos"
