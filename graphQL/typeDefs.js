@@ -70,8 +70,8 @@ const typeDefs = gql`
 
     type Query {
         obtenerUsuarios : [Usuario]
-        obtenerUsuario: Usuario
         obtenerProyectos: [Proyecto]
+        obtenerProyecto(idProyecto: String!): Proyecto
     }
 
     type Mutation {

@@ -6,6 +6,12 @@ const obtenerProyectos = async () => {
         .populate("estudiantesInscritos.proyecto", "nombreProyecto")
 }
 
+const obtenerProyecto = async (idProyecto) => {
+    return await Proyectos.findOne({idProyecto}).populate("lider")
+        .populate("estudiantesInscritos.estudiante")
+}
+
 module.exports = {
-    obtenerProyectos
+    obtenerProyectos,
+    obtenerProyecto
 }

@@ -1,5 +1,5 @@
 const { obtenerUsuarios, setEstadoUsuario } = require('../services/usuario.service');
-const { obtenerProyectos } = require('../services/proyecto.service');
+const { obtenerProyectos, obtenerProyecto } = require('../services/proyecto.service');
 const { GraphQLDateTime } = require('graphql-iso-date');
 
 const customScalarResolver = {
@@ -13,6 +13,8 @@ const resolvers = {
     Query: {
         obtenerUsuarios: async () => obtenerUsuarios(),
         obtenerProyectos: async () => obtenerProyectos(),
+        obtenerProyecto: async (parent, args, context, info) => obtenerProyecto(args.idProyecto)
+    
     },
 
     Mutation: {
