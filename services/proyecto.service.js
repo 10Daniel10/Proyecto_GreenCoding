@@ -32,7 +32,7 @@ const setEstadoProyecto = async (idProyecto, estado) => {
                     .then(res => `Proyecto desactivado`)
                     .catch(err => `Falló el cambio de estado: ${err}`)
             } else {
-                return "No puede desactivar el proyecto"
+                return "No se puede desactivar el proyecto"
             }
         } else {
             return "Falló cambio de estado del proyecto"
@@ -43,8 +43,25 @@ const setEstadoProyecto = async (idProyecto, estado) => {
     }
 }
 
+const setFaseProyecto = async (idProyecto, fase) => {
+    console.log(`Se está modificando el proyecto con id: ${idProyecto}`);
+    const proyecto = await Proyectos.findOne({idProyecto});
+    if ( proyecto ) {
+        if (proyecto.estado === "Activo" && proyecto.fase === "EnDesarrollo" && fase === "Terminado") {
+            // Proyecto terminado
+            return Proyectos.updateOne({idProyecto}, {$set:{fase, estado:"Inactivo", fechaTermina: new Date()}})
+                .then(res => `Proyecto terminado`)
+                .catch(err => `Falló el cambio de fase: ${err}`)
+        }
+    } else {
+        return "Proyecto no válido"
+    }
+
+}
+
 module.exports = {
     obtenerProyectos,
     obtenerProyecto,
-    setEstadoProyecto
+    setEstadoProyecto,
+    setFaseProyecto
 }

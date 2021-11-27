@@ -83,6 +83,10 @@ const typeDefs = gql`
             idProyecto: String!
             estado: String! 
         ): String
+        setFaseProyecto(
+            idProyecto: String!
+            fase: String!
+        ): String
     }
 `
 
