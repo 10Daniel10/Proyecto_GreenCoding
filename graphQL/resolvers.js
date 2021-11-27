@@ -1,5 +1,5 @@
 const { obtenerUsuarios, setEstadoUsuario } = require('../services/usuario.service');
-const { obtenerProyectos, obtenerProyecto } = require('../services/proyecto.service');
+const { obtenerProyectos, obtenerProyecto, setEstadoProyecto } = require('../services/proyecto.service');
 const { GraphQLDateTime } = require('graphql-iso-date');
 
 const customScalarResolver = {
@@ -18,7 +18,8 @@ const resolvers = {
     },
 
     Mutation: {
-        setEstadoUsuario: async(parent, args, context, info) => setEstadoUsuario(args.id, args.estado)
+        setEstadoUsuario: async(parent, args, context, info) => setEstadoUsuario(args.id, args.estado),
+        setEstadoProyecto: async(parent, args, context, info) => setEstadoProyecto(args.idProyecto, args.estado)
     },
 }
 
