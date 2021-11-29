@@ -11,6 +11,10 @@ const obtenerProyecto = async (idProyecto) => {
         .populate("estudiantesInscritos.estudiante")
 }
 
+const obtenerProyectosLider = async () => {
+    return await Proyectos.find({fase:"EnDesarrollo"}).populate("lider")
+}
+
 const setEstadoProyecto = async (idProyecto, estado) => {
     console.log(`Se está modificando el proyecto con id: ${idProyecto}`);
     const proyecto = await Proyectos.findOne({idProyecto});
@@ -59,9 +63,18 @@ const setFaseProyecto = async (idProyecto, fase) => {
 
 }
 
+const SetCrearProyecto = (project) => {
+    const nuevoProyecto = new Proyectos(project);
+    return nuevoProyecto.save()
+        .then(u => "Proyecto creado")
+        .catch(err => console.log(err));
+}
+
 module.exports = {
     obtenerProyectos,
     obtenerProyecto,
     setEstadoProyecto,
-    setFaseProyecto
+    setFaseProyecto,
+    SetCrearProyecto,
+    obtenerProyectosLider
 }
