@@ -15,7 +15,20 @@ const limpiarInscritos = async () => {
     });
 }
 const verAvances = async (idProyecto, estudiante) => {
-    //para ver los avances el susuario debe estar logeado
+    let comprobarProyecto = await Proyectos.find({ _id: idProyecto }).then(function (res) {
+        
+        if (typeof res[0].estudiantesInscritos.length !== 0) {
+            for (let i = 0; i < res[0].estudiantesInscritos.length; i++) {
+                if (res[0].estudiantesInscritos[i].estudiante === estudiante) {
+                    if (res[0].estudiantesInscritos[i].estado === "Activo") {
+                        return true;
+                    }
+
+                }
+            }
+        }
+    })
+    if (comprobarProyecto) {
     return Proyectos.find({
         'estudiantesInscritos.estudiante': {
             $in: [
@@ -32,8 +45,9 @@ const verAvances = async (idProyecto, estudiante) => {
             }
         })
     })
-
-
+    }else{
+        return "no esta inscrito"
+    }
 }
 /*
 string to array object
@@ -49,7 +63,7 @@ function malformedJSON2Array (tar) {
 }
 
 malformedJSON2Array("{a:12, b:c, foo:bar}");
-*/ 
+*/
 const createProyecto = async (nombreProyecto, objGeneral, objEspecifico, presupuesto, fechaInicio,
     fechaTermina, lider, estado, fase, estudiantesInscritos, avances) => {
 
@@ -73,15 +87,23 @@ const createProyecto = async (nombreProyecto, objGeneral, objEspecifico, presupu
 }
 const RegistrarAvances = async (idProyecto, fechaAvance, descripcion, idUsuario) => {
     let comprobarProyecto = await Proyectos.find({ _id: idProyecto }).then(function (res) {
-        if (res[0].estado === "Activo" && res[0].fase !== "Terminado") {
-            return true;
+        console.log(res[0].estudiantesInscritos);
+        if (res[0].estado === "Activo" && res[0].fase !== "Terminado" && typeof res[0].estudiantesInscritos.length !== 0) {
+            for (let i = 0; i < res[0].estudiantesInscritos.length; i++) {
+                if (res[0].estudiantesInscritos[i].estudiante === idUsuario) {
+                    if (res[0].estudiantesInscritos[i].estado === "Activo") {
+                        return true;
+                    }
+
+                }
+            }
         }
     })
     if (comprobarProyecto) {
-
         let estainscrito = [false];
         var nickname = null;
         estainscrito = await Proyectos.find({ _id: idProyecto }, { "estudiantesInscritos.estudiante": idUsuario }).then(function (res) {
+
             return res.map(function (x) {
                 if (typeof x.estudiantesInscritos[0] == "undefined") {
                     return false
@@ -98,9 +120,9 @@ const RegistrarAvances = async (idProyecto, fechaAvance, descripcion, idUsuario)
                         return true
                     }
                 }
-            }
-            )
-        })
+            }) })
+
+        
         if (nickname !== null) {
             return Proyectos.findOneAndUpdate(
                 { _id: idProyecto },
@@ -118,18 +140,22 @@ const RegistrarAvances = async (idProyecto, fechaAvance, descripcion, idUsuario)
         } else {
             return "no esta inscrito"
         }
-    }else {
-        return "proyecto en estado inactivo o terminado"
+    } else {
+        return "proyecto en estado inactivo o terminado o ustes no esta inscrito"
     }
 }
 const ModificarAvances = async (idProyecto, idAvance, descripcion, idUsuario) => {
     let comprobarProyecto = await Proyectos.find({ _id: idProyecto }).then(function (res) {
-        if (res[0].estado === "Activo" && res[0].fase !== "Terminado") {
-            return true;
-        }
-    })
+        console.log(res[0].estudiantesInscritos);
+        if (res[0].estado === "Activo" && res[0].fase !== "Terminado" && typeof res[0].estudiantesInscritos.length !== 0) {
+            for (let i = 0; i < res[0].estudiantesInscritos.length; i++) {
+                if (res[0].estudiantesInscritos[i].estudiante === idUsuario) {
+                    if (res[0].estudiantesInscritos[i].estado === "Activo") {
+                        return true;
+                   }
+                }
+        } }})
     if (comprobarProyecto) {
-
         let estainscrito = [false];
         var nickname = null;
         estainscrito = await Proyectos.find({ _id: idProyecto }, { "estudiantesInscritos.estudiante": idUsuario }).then(function (res) {
@@ -154,19 +180,19 @@ const ModificarAvances = async (idProyecto, idAvance, descripcion, idUsuario) =>
         })
         if (nickname !== null) {
             return Proyectos.updateOne(
-                { _id: idProyecto ,"avances._id":idAvance},
+                { _id: idProyecto, "avances._id": idAvance },
                 {
                     $set: {
-                        "avances.$.descripcion":descripcion
-    
+                        "avances.$.descripcion": descripcion
+
                     }
                 }).then(res => "se modifico el avance correctamente")
                 .catch(err => "Falló al modificar avance")
         } else {
             return "no esta inscrito"
         }
-    }else {
-        return "proyecto en estado inactivo o terminado"
+    } else {
+        return "proyecto en estado inactivo o terminado o no esta inscrito"
     }
 }
 
