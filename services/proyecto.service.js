@@ -11,8 +11,8 @@ const obtenerProyecto = async (idProyecto) => {
         .populate("estudiantesInscritos.estudiante")
 }
 
-const obtenerProyectosLider = async () => {
-    return await Proyectos.find({fase:"EnDesarrollo"}).populate("lider")
+const obtenerProyectosLider = async (lider1) => {
+    return await Proyectos.find({lider: lider1 })
 }
 
 const setEstadoProyecto = async (idProyecto, estado) => {

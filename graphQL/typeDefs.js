@@ -72,7 +72,7 @@ const typeDefs = gql`
         obtenerUsuarios : [Usuario]
         obtenerEstudiantes : [Usuario]
         obtenerProyectos: [Proyecto]
-        obtenerProyectosLider: [Proyecto]
+        obtenerProyectosLider(lider: ID!): [Proyecto]
         obtenerProyecto(idProyecto: String!): Proyecto
     }
 
@@ -84,6 +84,7 @@ const typeDefs = gql`
         presupuesto: Int
         estado: String
         fase: String
+        lider: String
     }
 
     type Mutation {

@@ -14,7 +14,7 @@ const resolvers = {
         obtenerUsuarios: async () => obtenerUsuarios(),
         obtenerEstudiantes: async () => obtenerEstudiantes(),
         obtenerProyectos: async () => obtenerProyectos(),
-        obtenerProyectosLider: async () => obtenerProyectosLider(),
+        obtenerProyectosLider: async (parent, args, context, info) => obtenerProyectosLider(args.lider),
         obtenerProyecto: async (parent, args, context, info) => obtenerProyecto(args.idProyecto)
     
     },
