@@ -103,6 +103,14 @@ const typeDefs = gql`
         SetCrearProyecto(
             project:CreacionProyecto
         ):String
+        SetModificarProyecto(
+            lider: ID
+            idProyecto: String
+            nombreProyecto: String
+            objGeneral: String
+            objEspecifico: String
+            presupuesto: Int
+        ):String
     }
 `
 
