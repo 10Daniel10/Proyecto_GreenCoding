@@ -26,6 +26,11 @@ const usuario = new Schema({
     clave: {
         type: String,
         required: true
-    }
+    },
+    rol:{
+        type: String,
+        require:true,
+
+    },
 })
 module.exports = model('usuarios', usuario,"usuarios")

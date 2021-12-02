@@ -9,7 +9,7 @@ const listUsuarios = [
         nombre: 'Renzo Montoya',
         identificacion: 123456789,
         email: 'renzomontoya9@gmail.com',
-        clave: 'claveFacil',
+        clave: 'claveEstudiante',
         perfil: 'estudiante',
         estado: 'activo'
     },
@@ -17,7 +17,7 @@ const listUsuarios = [
         nombre: 'Jose alejandro',
         identificacion: 98765,
         email: 'josesito@gmail.com',
-        clave: 'ClaveDificil',
+        clave: 'ClaveAdmin',
         perfil: 'estudiante',
         estado: 'inactivo'
     },
@@ -59,6 +59,11 @@ Mutation:{
         return nuevoUsuario.save()
             .then(u => "usuario creado")
             .catch(err => console.log(err));
+    }
+    updateUser: (parent, args, context, info) => {
+        return User.updateOne({ identificacion: args.identificacion }, { estado: "Activo" },{rol:"estudiante"},)
+            .then(u => "Datos Actualizados")
+            .catch(err => "No se pudo Actualizar Usuario");
     }
 
 

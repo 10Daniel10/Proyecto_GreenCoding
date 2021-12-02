@@ -9,6 +9,7 @@ type Usuario{
     clave:String
     perfil: String
     estado: String
+    rol:String
 }
 type Query{
     usuarios: [Usuario]
@@ -20,12 +21,13 @@ input UserInput{
     clave: String
     perfil:String
     estado: String
+    rol:String
 }
 type Mutation{
     createUser(user:UserInput):String
     activeUser(identificacion:Int):String
     deleteUser(ident:Int):String
-   
+    updateUser(identificacion:Int):String
 }
 `
 
