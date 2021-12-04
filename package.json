@@ -1,7 +1,7 @@
 {
   "name": "backoffice-proyectoclase-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "backend",
   "main": "app.js",
   "dependencies": {
     "apollo-server-express": "^3.5.0",

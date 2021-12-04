@@ -71,9 +71,8 @@ const typeDefs = gql`
     type Query {
         obtenerUsuarios : [Usuario]
         obtenerEstudiantes : [Usuario]
-        
-        obtenerProyectosLider(lider: ID!): [Proyecto]
         obtenerProyectos: [Proyecto]
+        obtenerProyectosLider(lider: ID!): [Proyecto]
         obtenerProyecto(idProyecto: String!): Proyecto
     }
 

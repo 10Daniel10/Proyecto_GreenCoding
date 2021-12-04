@@ -1,6 +1,8 @@
 const Usuarios = require('../model/usuario.model');
 
-const obtenerUsuarios = async () => await Usuarios.find({})
+const obtenerUsuarios = async () => await Usuarios.find()
+
+const obtenerEstudiantes = async () => await Usuarios.find({tipo:"Estudiante"})
 
 const setEstadoUsuario = async (id, estado) => {
     console.log(id);
@@ -11,5 +13,6 @@ const setEstadoUsuario = async (id, estado) => {
 
 module.exports = {
     obtenerUsuarios,
-    setEstadoUsuario
+    setEstadoUsuario,
+    obtenerEstudiantes
 }

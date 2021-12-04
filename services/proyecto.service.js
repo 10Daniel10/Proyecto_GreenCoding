@@ -11,6 +11,10 @@ const obtenerProyecto = async (idProyecto) => {
         .populate("estudiantesInscritos.estudiante")
 }
 
+const obtenerProyectosLider = async (lider1) => {
+    return await Proyectos.find({lider: lider1 })
+}
+
 const setEstadoProyecto = async (idProyecto, estado) => {
     console.log(`Se está modificando el proyecto con id: ${idProyecto}`);
     const proyecto = await Proyectos.findOne({idProyecto});
@@ -56,12 +60,35 @@ const setFaseProyecto = async (idProyecto, fase) => {
     } else {
         return "Proyecto no válido"
     }
+}
 
+const SetCrearProyecto = (project) => {
+    const nuevoProyecto = new Proyectos(project);
+    return nuevoProyecto.save()
+        .then(u => "Proyecto creado")
+        .catch(err => console.log(err));
+}
+
+const SetModificarProyecto = async (lider1, idProyecto, nombreProyecto1, objGeneral1, objEspecifico1, presupuesto1) => {
+    const proyecto = await Proyectos.find({lider: lider1 });
+    if ( proyecto ) {
+        const proyecto2 = await Proyectos.findOne({idProyecto});
+        if (proyecto2.estado === "Activo") {
+            return Proyectos.updateOne({idProyecto}, {$set:{nombreProyecto: nombreProyecto1, objGeneral: objGeneral1, objEspecifico: objEspecifico1, presupuesto: presupuesto1}})
+                .then(res => `Proyecto actualizado`)
+                .catch(err => `Falló la actualización: ${err}`)
+        }
+    } else {
+        return res => "Proyecto no válido para actualiación"
+    }
 }
 
 module.exports = {
     obtenerProyectos,
     obtenerProyecto,
     setEstadoProyecto,
-    setFaseProyecto
+    setFaseProyecto,
+    SetCrearProyecto,
+    obtenerProyectosLider,
+    SetModificarProyecto
 }
