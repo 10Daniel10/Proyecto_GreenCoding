@@ -1,8 +1,12 @@
 const Usuarios = require('../model/usuario.model');
 const Proyectos = require('../model/proyecto.model');
 
-const obtenerUsuarios = async () => await Usuarios.find({})
+//const obtenerUsuarios = async () => await Usuarios.find({})
 
+//HU_010
+const obtenerEstudiantes = async () => await Usuarios.find({tipo:"Estudiante"})
+
+//HU_005 y HU_011
 const setEstadoUsuario = async (id, estado) => {
     console.log(id);
     return Usuarios.updateOne({id}, {estado})
@@ -22,5 +26,6 @@ const obtenerMisPostulaciones = async (id) => {
 module.exports = {
     obtenerUsuarios,
     setEstadoUsuario,
+    obtenerEstudiantes,
     obtenerMisPostulaciones
 }

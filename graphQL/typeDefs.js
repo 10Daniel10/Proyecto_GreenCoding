@@ -79,6 +79,21 @@ const typeDefs = gql`
 
     input nuevaObservacion {
         observacion: String
+        obtenerEstudiantes : [Usuario]
+        obtenerProyectos: [Proyecto]
+        obtenerProyectosLider(lider: ID!): [Proyecto]
+        obtenerProyecto(idProyecto: String!): Proyecto
+    }
+
+    input CreacionProyecto {
+        idProyecto: String
+        nombreProyecto: String!
+        objGeneral: String
+        objEspecifico: String
+        presupuesto: Int
+        estado: String
+        fase: String
+        lider: String
     }
 
     type Mutation {
@@ -90,6 +105,25 @@ const typeDefs = gql`
         inscribirEstudiante (id: String, idMiProyecto: String): String
         agregarObservacion (idMiProyecto: String, idAvance: String, obs: String ) : String
 
+        setEstadoProyecto( 
+            idProyecto: String!
+            estado: String! 
+        ): String
+        setFaseProyecto(
+            idProyecto: String!
+            fase: String!
+        ): String
+        SetCrearProyecto(
+            project:CreacionProyecto
+        ):String
+        SetModificarProyecto(
+            lider: ID
+            idProyecto: String
+            nombreProyecto: String
+            objGeneral: String
+            objEspecifico: String
+            presupuesto: Int
+        ):String
     }
 `
 
