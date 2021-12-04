@@ -69,9 +69,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        obtenerUsuarios : [Usuario]
-        obtenerUsuario(id:String!): Usuario
-        obtenerProyectos: [Proyecto]
+
         verAvances(
             idProyecto: ID!,
             estudiante:ID!
@@ -80,31 +78,7 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        setEstadoUsuario(
-            id: String!
-            estado: String!
-        ): String
-        
-        createUser(
-            nombre: String!, 
-            correo: String!,
-            clave: String!, 
-            tipo: String!,
-            estado: String!): Usuario
-
-        createProyecto(
-            nombreProyecto: String!
-            objGeneral: String
-            objEspecifico: String
-            presupuesto: Int
-            fechaInicio: Date
-            fechaTermina: Date
-            lider: String
-            estado: String
-            fase: String
-            estudiantesInscritos: String
-            avances: String
-        ) : Proyecto  
+ 
 
 
 
@@ -116,12 +90,7 @@ const typeDefs = gql`
             fechaEgreso: Date
         ):String
 
-        limpiarInscritos(
-            id:ID!
-        ):String!
-        borrarusuario(
-            id:ID!
-        ):String
+
         RegistrarAvances(
             idProyecto: ID,
             fechaAvance: Date,

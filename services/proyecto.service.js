@@ -1,19 +1,9 @@
 const Proyectos = require('../model/proyecto.model');
-const estudianteInscrito = require('../model/estudianteInscrito.model');
-const Usuario = require('../model/usuario.model');
+
 var mongoose = require('mongoose');
 const { UniqueTypeNamesRule } = require('graphql');
 //const bson = require('bson');
-const obtenerProyectos = async () => {
-    return await Proyectos.find({}).populate("lider")
-        .populate("estudiantesInscritos.estudiante")
-        .populate("estudiantesInscritos.proyecto", "nombreProyecto")
-}
-const limpiarInscritos = async () => {
-    return Proyectos.update({}, { $set: { estudiantesInscritos: [], avances: [] } }, function (err, affected) {
-        console.log('affected: ', affected);
-    });
-}
+
 const verAvances = async (idProyecto, estudiante) => {
     let comprobarProyecto = await Proyectos.find({ _id: idProyecto }).then(function (res) {
         
@@ -49,42 +39,8 @@ const verAvances = async (idProyecto, estudiante) => {
         return "no esta inscrito"
     }
 }
-/*
-string to array object
-function malformedJSON2Array (tar) {
-    var arr = [];
-    tar = tar.replace(/^\{|\}$/g,'').split(',');
-    for(var i=0,cur,pair;cur=tar[i];i++){
-        arr[i] = {};
-        pair = cur.split(':');
-        arr[i][pair[0]] = /^\d*$/.test(pair[1]) ? +pair[1] : pair[1];
-    }
-    return arr;
-}
 
-malformedJSON2Array("{a:12, b:c, foo:bar}");
-*/
-const createProyecto = async (nombreProyecto, objGeneral, objEspecifico, presupuesto, fechaInicio,
-    fechaTermina, lider, estado, fase, estudiantesInscritos, avances) => {
 
-    let proyecto = new Proyectos({
-        nombreProyecto,
-        objGeneral,
-        objEspecifico,
-        presupuesto,
-        fechaInicio,
-        fechaTermina,
-        lider,
-        estado,
-        fase,
-        estudiantesInscritos,
-        avances,
-    });
-    proyecto.save()
-        .then(res => `Proyecto insertado`)
-        .catch(err => "Falló al insertar")
-    return proyecto;
-}
 const RegistrarAvances = async (idProyecto, fechaAvance, descripcion, idUsuario) => {
     let comprobarProyecto = await Proyectos.find({ _id: idProyecto }).then(function (res) {
         console.log(res[0].estudiantesInscritos);
@@ -251,10 +207,7 @@ const InscribirmeProyecto = async (idProyecto, idUsuario, estado, fechaIngreso, 
 }
 
 module.exports = {
-    obtenerProyectos,
     InscribirmeProyecto,
-    createProyecto,
-    limpiarInscritos,
     verAvances,
     RegistrarAvances,
     ModificarAvances
