@@ -72,17 +72,12 @@ const typeDefs = gql`
         obtenerUsuarios : [Usuario]
         obtenerUsuario: Usuario
         obtenerProyectos: [Proyecto]
+        obtenerProyecto(idProyecto: String!): Proyecto
         obtenerMisSolicitudes(id: String): [Proyecto]
         obtenerMisPostulaciones(id: String): [Proyecto]
         obtenerMisProyectos(id: String): [Proyecto]
-    }
-
-    input nuevaObservacion {
-        observacion: String
-        obtenerEstudiantes : [Usuario]
-        obtenerProyectos: [Proyecto]
         obtenerProyectosLider(lider: ID!): [Proyecto]
-        obtenerProyecto(idProyecto: String!): Proyecto
+        obtenerEstudiantes : [Usuario]
     }
 
     input CreacionProyecto {

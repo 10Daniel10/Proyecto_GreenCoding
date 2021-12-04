@@ -24,7 +24,6 @@ const obtenerMisPostulaciones = async (id) => {
 }
 
 module.exports = {
-    obtenerUsuarios,
     setEstadoUsuario,
     obtenerEstudiantes,
     obtenerMisPostulaciones
