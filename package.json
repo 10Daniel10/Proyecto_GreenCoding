@@ -5,7 +5,6 @@
   "main": "app.js",
   "dependencies": {
     "apollo-server-express": "^3.5.0",
-    "bson": "^4.6.0",
     "express": "^4.17.1",
     "graphql": "^16.0.1",
     "graphql-iso-date": "^3.6.1",
