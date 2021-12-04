@@ -37,24 +37,23 @@ const typeDefs = gql`
     }
 
     type estudianteInscrito {
-        idEstudianteInscrito: String
-        estudiante: Usuario
-        proyecto: Proyecto
+        id: ID!
+        estudiante: String
+        proyecto: String
         estado: Estado
         fechaIngreso: Date
         fechaEgreso: Date
     }
 
     type avance {
-        idAvance: String
+        id: ID!
         idProyecto: Proyecto
         fechaAvance: Date
         descripcion: String
         observacion: String
     }
-
     type Proyecto {
-        idProyecto: String
+        id: ID!
         nombreProyecto: String!
         objGeneral: String
         objEspecifico: String
@@ -78,6 +77,11 @@ const typeDefs = gql`
         obtenerMisProyectos(id: String): [Proyecto]
         obtenerProyectosLider(lider: ID!): [Proyecto]
         obtenerEstudiantes : [Usuario]
+        verAvances(
+            idProyecto: ID!,
+            estudiante:ID!
+
+        ):[String]
     }
 
     input CreacionProyecto {
@@ -119,7 +123,31 @@ const typeDefs = gql`
             objEspecifico: String
             presupuesto: Int
         ):String
-    }
-`
 
-module.exports = typeDefs;
+        verAvances(
+            idProyecto: ID!,
+            estudiante:ID!
+
+        ):[String]
+        InscribirmeProyecto(
+            idProyecto: String!,
+            idUsuario: String!,
+            estado: String,
+            fechaIngreso: Date,
+            fechaEgreso: Date
+        ):String
+        RegistrarAvances(
+            idProyecto: ID,
+            fechaAvance: Date,
+            descripcion: String,
+            idUsuario : String!
+        ): String
+        ModificarAvances(
+            idProyecto:ID, 
+            idAvance:String, 
+            descripcion:String, 
+            idUsuario:String
+
+        ):String
+    }
+` 
