@@ -3,7 +3,8 @@ const express = require('express');
 const typeDefs = require('./graphQL/typeDefs');
 const resolvers = require('./graphQL/resolvers');
 
-
+const { validarToken, admin, estudiante } = require('./middleware/authjwt')
+const authRoute = require('./routes/authRoutes')
 // realizar la conexión a la BD
 const bd = require('./infrastructure/bd');
 bd.conectar();
@@ -15,13 +16,28 @@ const iniciarServidor = async () => {
     const apollo = new ApolloServer(
         {
             typeDefs,
-            resolvers
+            resolvers,
+            context:({request})=>{
+                const token= request.headers.authorization;
+                try {
+                    const perfil = jwt.verify(token, key)
+                    if (perfil) {
+                        rol = perfil.rolUser
+                        return {rol}
+                       }
+                    } catch (error) {
+                    console.log(error)
+                    }
+                return {}
+            
+                }
         });
     await apollo.start();
     apollo.applyMiddleware({ app: app });
     app.use((req, res) => {
         res.send('Hola')
     });
+    api.use('/api',authRoutes)  
     app.listen(PUERTO, () => {
         console.log(`Servicio iniciado a través de la url http://localhost:${PUERTO}`);
     });

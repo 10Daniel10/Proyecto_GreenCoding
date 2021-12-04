@@ -29,32 +29,32 @@ const typeDefs = gql`
     }
     
     type Usuario {
-        id: ID!
+        id: String!
         nombre: String!
         correo: String!
-        clave: String!
         tipo: TipoUsuario!
-        estado: EstadoUsuario!
+        estado: EstadoUsuario
     }
 
     type estudianteInscrito {
-        id: ID!
-        estudiante: String
-        proyecto: String
+        idEstudianteInscrito: String
+        estudiante: Usuario
+        proyecto: Proyecto
         estado: Estado
         fechaIngreso: Date
         fechaEgreso: Date
     }
 
     type avance {
-        id: ID!
+        idAvance: String
         idProyecto: Proyecto
         fechaAvance: Date
         descripcion: String
         observacion: String
     }
+
     type Proyecto {
-        id: ID!
+        idProyecto: String
         nombreProyecto: String!
         objGeneral: String
         objEspecifico: String
@@ -69,19 +69,68 @@ const typeDefs = gql`
     }
 
     type Query {
-
+        obtenerUsuarios : [Usuario]
+        obtenerEstudiantes : [Usuario]
+        obtenerProyectos: [Proyecto]
+        obtenerProyectosLider(lider: ID!): [Proyecto]
+        obtenerProyecto(idProyecto: String!): Proyecto
+        obtenerUsuario: Usuario
+        obtenerMisSolicitudes(id: String): [Proyecto]
+        obtenerMisPostulaciones(id: String): [Proyecto]
+        obtenerMisProyectos(id: String): [Proyecto]
         verAvances(
             idProyecto: ID!,
             estudiante:ID!
 
         ):[String]
     }
+    input UserInput{
+        id:String
+        nombre: String
+        correo:String
+        clave: String
+        tipo:TipoUsuario!
+    }
+
+
+    input CreacionProyecto {
+        idProyecto: String
+        nombreProyecto: String!
+        objGeneral: String
+        objEspecifico: String
+        presupuesto: Int
+        estado: String
+        fase: String
+        lider: String
+    }
 
     type Mutation {
- 
-
-
-
+        inscribirEstudiante (id: String, idMiProyecto: String): String
+        agregarObservacion (idMiProyecto: String, idAvance: String, obs: String ) : String
+        setEstadoUsuario(
+            id: String!
+            estado: String!
+        ): String
+        setEstadoProyecto( 
+            idProyecto: String!
+            estado: String! 
+        ): String
+        setFaseProyecto(
+            idProyecto: String!
+            fase: String!
+        ): String
+        SetCrearProyecto(
+            project:CreacionProyecto
+        ):String
+        SetModificarProyecto(
+            lider: ID
+            idProyecto: String
+            nombreProyecto: String
+            objGeneral: String
+            objEspecifico: String
+            presupuesto: Int
+        ):String
+        
         InscribirmeProyecto(
             idProyecto: String!,
             idUsuario: String!,
@@ -89,8 +138,6 @@ const typeDefs = gql`
             fechaIngreso: Date,
             fechaEgreso: Date
         ):String
-
-
         RegistrarAvances(
             idProyecto: ID,
             fechaAvance: Date,
@@ -104,9 +151,10 @@ const typeDefs = gql`
             idUsuario:String
 
         ):String
-
-
-        
+        createUser(user:UserInput):String
+        activeUser(identificacion:Int):String
+        deleteUser(ident:Int):String
+        updateUser(identificacion:Int):String
     }
 `
 

@@ -4,11 +4,11 @@ const avance = require('./avance.model');
 
 const proyectos = new Schema({
 
-    /*idProyecto: {
+    idProyecto: {
         type:String,
         require: true,
         unique: true
-    },*/
+    },
     nombreProyecto: {
         type: String,
         require: true
