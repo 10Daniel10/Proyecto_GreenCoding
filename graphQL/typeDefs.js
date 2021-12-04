@@ -70,6 +70,15 @@ const typeDefs = gql`
 
     type Query {
         obtenerUsuarios : [Usuario]
+        obtenerUsuario: Usuario
+        obtenerProyectos: [Proyecto]
+        obtenerMisSolicitudes(id: String): [Proyecto]
+        obtenerMisPostulaciones(id: String): [Proyecto]
+        obtenerMisProyectos(id: String): [Proyecto]
+    }
+
+    input nuevaObservacion {
+        observacion: String
         obtenerEstudiantes : [Usuario]
         obtenerProyectos: [Proyecto]
         obtenerProyectosLider(lider: ID!): [Proyecto]
@@ -92,6 +101,10 @@ const typeDefs = gql`
             id: String!
             estado: String!
         ): String
+        
+        inscribirEstudiante (id: String, idMiProyecto: String): String
+        agregarObservacion (idMiProyecto: String, idAvance: String, obs: String ) : String
+
         setEstadoProyecto( 
             idProyecto: String!
             estado: String! 
