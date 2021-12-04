@@ -70,8 +70,22 @@ const typeDefs = gql`
 
     type Query {
         obtenerUsuarios : [Usuario]
+        obtenerEstudiantes : [Usuario]
+        
+        obtenerProyectosLider(lider: ID!): [Proyecto]
         obtenerProyectos: [Proyecto]
         obtenerProyecto(idProyecto: String!): Proyecto
+    }
+
+    input CreacionProyecto {
+        idProyecto: String
+        nombreProyecto: String!
+        objGeneral: String
+        objEspecifico: String
+        presupuesto: Int
+        estado: String
+        fase: String
+        lider: String
     }
 
     type Mutation {
@@ -87,6 +101,17 @@ const typeDefs = gql`
             idProyecto: String!
             fase: String!
         ): String
+        SetCrearProyecto(
+            project:CreacionProyecto
+        ):String
+        SetModificarProyecto(
+            lider: ID
+            idProyecto: String
+            nombreProyecto: String
+            objGeneral: String
+            objEspecifico: String
+            presupuesto: Int
+        ):String
     }
 `
 
