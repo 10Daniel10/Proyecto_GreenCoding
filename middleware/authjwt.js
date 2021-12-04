@@ -19,7 +19,7 @@ const validarToken = (request, response, next) => {
     }
 }
 const admin = (request, response, next) => {
-    if (request.perfil != "Admin") {
+    if (request.perfil!= "Admin") {
         return response.status(403).json({ response: "Permisos insuficientes" })
     }
     next();
@@ -32,7 +32,7 @@ const isAdmin = (rol) => {
 }
 
 const estudiante = (request, response, next) => {
-    if (request.perfil != "Estudiante") {
+    if (request.perfil!= "Estudiante") {
         return response.status(403).json({ response: "Permisos insuficientes" })
     }
     next();

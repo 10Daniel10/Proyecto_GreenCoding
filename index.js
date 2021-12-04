@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken')
 
 const typeDefs = require('./typeDefs')
 const resolvers = require('./resolvers')
-const authRoute = require('./routes/authRoutes')
+const authRoutes = require('./routes/authRoutes')
+const authController = require('./controller/authController')
 
 const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
@@ -35,7 +36,7 @@ const iniciarServidor = async()=>{
     
 
     api.use(express.json())
-    api.use('/api',authRoute)  
+    api.use('/api',authRoutes)  
     api.get('/api/dashboard/admin', [validarToken, admin], (request, response) => {
         response.json("Soy el dashboard") 
 
@@ -47,7 +48,7 @@ const iniciarServidor = async()=>{
 
     api.listen('9092', ()=>console.log('start server')) 
 }
-
+iniciarServidor()
 
 
 
