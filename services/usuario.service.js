@@ -1,5 +1,6 @@
 const Usuarios = require('../model/usuario.model');
 const Proyectos = require('../model/proyecto.model');
+const configAuth = require('../config/auth.config')
 
 let aes256 = require('aes256');
 
@@ -26,7 +27,7 @@ const obtenerMisPostulaciones = async (id) => {
 }
 
 //HU_001
-const key = 'CLAVEADMIN';
+const key = configAuth.AUTH;
 const crearUsuario = async (usuario) => {
     const { clave } = usuario;
             const nuevoUsuario = new Usuarios(usuario);
