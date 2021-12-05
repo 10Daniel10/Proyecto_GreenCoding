@@ -37,10 +37,28 @@ const crearUsuario = async (usuario) => {
                 .catch(err => console.log(err));
 }
 
+//HU_004
+const SetModificarUsuario = async (id, nombre, correo, clave) => {
+    const usuario = await Usuarios.findOne({id});
+    if ( usuario ) {
+        if (usuario.estado === "Autorizado") {
+            const claveEncriptada = aes256.encrypt(key, clave);
+            return Usuarios.updateOne({id}, {$set:{nombre: nombre, correo: correo, clave: claveEncriptada}})
+                .then(res => `Usuario actualizado`)
+                .catch(err => `Falló la actualización: ${err}`)
+        } else {
+            return res => "Usuario no autorizado"
+        }
+    } else {
+        return res => "Usuario no válido para actualiación"
+    }
+}
+
 module.exports = {
     setEstadoUsuario,
     obtenerEstudiantes,
     obtenerMisPostulaciones,
     crearUsuario,
-    obtenerUsuarios
+    obtenerUsuarios,
+    SetModificarUsuario
 }

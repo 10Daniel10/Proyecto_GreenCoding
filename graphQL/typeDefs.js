@@ -160,6 +160,13 @@ const typeDefs = gql`
         ):String
 
         crearUsuario(usuario: CreacionUsuario): String
+
+        SetModificarUsuario(
+            id: String
+            nombre: String
+            correo: String
+            clave: String
+        ):String
     }
 `
 module.exports = typeDefs;

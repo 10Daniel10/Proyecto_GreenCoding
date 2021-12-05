@@ -1,5 +1,5 @@
 const { obtenerUsuarios, setEstadoUsuario, obtenerMisPostulaciones, obtenerEstudiantes,
-crearUsuario} = require('../services/usuario.service');
+crearUsuario, SetModificarUsuario} = require('../services/usuario.service');
 const { obtenerProyectos,obtenerMisSolicitudes, obtenerMisProyectos, inscribirEstudiante, agregarObservacion, obtenerProyecto, setEstadoProyecto, setFaseProyecto,  SetCrearProyecto, obtenerProyectosLider, SetModificarProyecto
     ,InscribirmeProyecto,verAvances ,RegistrarAvances,ModificarAvances } = require('../services/proyecto.service');
 
@@ -41,8 +41,9 @@ const resolvers = {
         InscribirmeProyecto: async (parent, args, context, info) => InscribirmeProyecto(args.idProyecto, args.idUsuario,args.estado,args.fechaIngreso,args.fechaEgreso),
         
         
-        crearUsuario: (parent, args, context, info) => crearUsuario(args.usuario)
-    },
+        crearUsuario: (parent, args, context, info) => crearUsuario(args.usuario),
+        SetModificarUsuario: (parent, args, context, info) => SetModificarUsuario(args.id, args.nombre, args.correo, args.clave)
+        },
 }
 
 module.exports = resolvers;
