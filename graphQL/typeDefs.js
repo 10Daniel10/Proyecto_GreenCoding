@@ -97,7 +97,7 @@ const typeDefs = gql`
 
     input CreacionUsuario{
     nombre: String
-    identificacion:String
+    id:String
     clave: String
     tipo:String
     correo: String
