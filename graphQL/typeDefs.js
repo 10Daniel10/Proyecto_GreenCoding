@@ -37,7 +37,7 @@ const typeDefs = gql`
     }
 
     type estudianteInscrito {
-        id: String!
+        id: ID!
         estudiante: String
         proyecto: String
         estado: Estado
@@ -46,7 +46,7 @@ const typeDefs = gql`
     }
 
     type avance {
-        id: String!
+        id: ID!
         idProyecto: Proyecto
         fechaAvance: Date
         descripcion: String
