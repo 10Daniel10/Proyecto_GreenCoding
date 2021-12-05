@@ -1,11 +1,15 @@
-const { obtenerUsuarios, setEstadoUsuario, obtenerMisPostulaciones, obtenerEstudiantes} = require('../services/usuario.service');
+const { obtenerUsuarios, setEstadoUsuario, obtenerMisPostulaciones, obtenerEstudiantes,
+crearUsuario} = require('../services/usuario.service');
 const { obtenerProyectos,obtenerMisSolicitudes, obtenerMisProyectos, inscribirEstudiante, agregarObservacion, obtenerProyecto, setEstadoProyecto, setFaseProyecto,  SetCrearProyecto, obtenerProyectosLider, SetModificarProyecto
     ,InscribirmeProyecto,verAvances ,RegistrarAvances,ModificarAvances } = require('../services/proyecto.service');
+
 const { GraphQLDateTime } = require('graphql-iso-date');
+
 
 const customScalarResolver = {
   Date: GraphQLDateTime
 };
+
 
 
 const resolvers = {
@@ -35,7 +39,9 @@ const resolvers = {
         ModificarAvances:async (parent, args, context, info)=>ModificarAvances(args.idProyecto, args.idAvance, args.descripcion, args.idUsuario),
         RegistrarAvances:async (parent, args, context, info)=>RegistrarAvances(args.idProyecto, args.fechaAvance, args.descripcion,args.idUsuario),
         InscribirmeProyecto: async (parent, args, context, info) => InscribirmeProyecto(args.idProyecto, args.idUsuario,args.estado,args.fechaIngreso,args.fechaEgreso),
-    
+        
+        
+        crearUsuario: (parent, args, context, info) => crearUsuario(args.usuario)
     },
 }
 

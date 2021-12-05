@@ -1,7 +1,9 @@
 const Usuarios = require('../model/usuario.model');
 const Proyectos = require('../model/proyecto.model');
 
-//const obtenerUsuarios = async () => await Usuarios.find({})
+let aes256 = require('aes256');
+
+const obtenerUsuarios = async () => await Usuarios.find({})
 
 //HU_010
 const obtenerEstudiantes = async () => await Usuarios.find({tipo:"Estudiante"})
@@ -23,8 +25,22 @@ const obtenerMisPostulaciones = async (id) => {
         .populate("estudiantesInscritos.proyecto", "nombreProyecto")
 }
 
+//HU_001
+const key = 'CLAVEADMIN';
+const crearUsuario = async (usuario) => {
+    const { clave } = usuario;
+            const nuevoUsuario = new Usuarios(usuario);
+            const encryptedPlainText = aes256.encrypt(key, clave);
+            nuevoUsuario.clave = encryptedPlainText
+            return nuevoUsuario.save()
+                .then(u => "Usuario creado")
+                .catch(err => console.log(err));
+}
+
 module.exports = {
     setEstadoUsuario,
     obtenerEstudiantes,
-    obtenerMisPostulaciones
+    obtenerMisPostulaciones,
+    crearUsuario,
+    obtenerUsuarios
 }

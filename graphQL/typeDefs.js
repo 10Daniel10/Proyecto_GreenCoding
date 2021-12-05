@@ -37,7 +37,7 @@ const typeDefs = gql`
     }
 
     type estudianteInscrito {
-        id: ID!
+        id: String!
         estudiante: String
         proyecto: String
         estado: Estado
@@ -46,14 +46,14 @@ const typeDefs = gql`
     }
 
     type avance {
-        id: ID!
+        id: String!
         idProyecto: Proyecto
         fechaAvance: Date
         descripcion: String
         observacion: String
     }
     type Proyecto {
-        id: ID!
+        id: String!
         nombreProyecto: String!
         objGeneral: String
         objEspecifico: String
@@ -75,11 +75,11 @@ const typeDefs = gql`
         obtenerMisSolicitudes(id: String): [Proyecto]
         obtenerMisPostulaciones(id: String): [Proyecto]
         obtenerMisProyectos(id: String): [Proyecto]
-        obtenerProyectosLider(lider: ID!): [Proyecto]
+        obtenerProyectosLider(lider: String!): [Proyecto]
         obtenerEstudiantes : [Usuario]
         verAvances(
-            idProyecto: ID!,
-            estudiante:ID!
+            idProyecto: String!
+            estudiante:String!
 
         ):[String]
     }
@@ -93,6 +93,14 @@ const typeDefs = gql`
         estado: String
         fase: String
         lider: String
+    }
+
+    input CreacionUsuario{
+    nombre: String
+    identificacion:String
+    clave: String
+    tipo:String
+    correo: String
     }
 
     type Mutation {
@@ -129,6 +137,7 @@ const typeDefs = gql`
             estudiante:ID!
 
         ):[String]
+
         InscribirmeProyecto(
             idProyecto: String!,
             idUsuario: String!,
@@ -149,5 +158,8 @@ const typeDefs = gql`
             idUsuario:String
 
         ):String
+
+        crearUsuario(usuario: CreacionUsuario): String
     }
-` 
+`
+module.exports = typeDefs;
