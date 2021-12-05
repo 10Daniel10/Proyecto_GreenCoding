@@ -9,7 +9,8 @@ const validarToken = (request, response, next) => {
     try {
         const perfil = jwt.verify(token, key)
         if (perfil) {
-            request.perfil = perfil.rolUser
+            console.log(perfil)
+            request.tipo = perfil.rolUser
             next();
             return
         }
@@ -19,7 +20,7 @@ const validarToken = (request, response, next) => {
     }
 }
 const admin = (request, response, next) => {
-    if (request.perfil!= "Admin") {
+    if (request.perfil!= "Administrador") {
         return response.status(403).json({ response: "Permisos insuficientes" })
     }
     next();

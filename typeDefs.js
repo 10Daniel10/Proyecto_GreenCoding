@@ -5,11 +5,11 @@ scalar Date
 type Usuario{
     nombre: String
     identificacion: Int
-    email: String
-    clave:String
-    perfil: String
-    estado: String
-    rol:String
+    estado:String
+    correo:String
+    perfil:String
+    
+
 }
 type Query{
     usuarios: [Usuario]
@@ -20,14 +20,13 @@ input UserInput{
     identificacion:Int
     clave: String
     perfil:String
-    estado: String
-    rol:String
+
 }
 type Mutation{
     createUser(user:UserInput):String
-    activeUser(identificacion:Int):String
     deleteUser(ident:Int):String
     updateUser(identificacion:Int):String
+    activeUser(identificacion:Int):String
 }
 `
 

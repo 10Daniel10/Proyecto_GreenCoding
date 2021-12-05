@@ -10,7 +10,7 @@ const usuario = new Schema({
         unique: true,
         required: true
     },
-    email:{
+    correo:{
         type:String,
         unique:true,
 
@@ -21,11 +21,7 @@ const usuario = new Schema({
     },
     perfil: {
         type: String,
-        default: "Inactivo"
-    },
-    clave: {
-        type: String,
-        required: true
+        default: "activo"
     },
     rol:{
         type: String,
