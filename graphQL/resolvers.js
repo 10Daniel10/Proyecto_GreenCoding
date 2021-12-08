@@ -3,11 +3,11 @@ crearUsuario, SetModificarUsuario} = require('../services/usuario.service');
 const { obtenerProyectos,obtenerMisSolicitudes, obtenerMisProyectos, inscribirEstudiante, agregarObservacion, obtenerProyecto, setEstadoProyecto, setFaseProyecto,  SetCrearProyecto, obtenerProyectosLider, SetModificarProyecto
     ,InscribirmeProyecto,verAvances ,RegistrarAvances,ModificarAvances } = require('../services/proyecto.service');
 
-const { GraphQLDateTime } = require('graphql-iso-date');
+const { GraphQLDate } = require('graphql-iso-date');
 
 
 const customScalarResolver = {
-  Date: GraphQLDateTime
+  Date: GraphQLDate
 };
 
 

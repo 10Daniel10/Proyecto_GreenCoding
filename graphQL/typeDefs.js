@@ -53,7 +53,7 @@ const typeDefs = gql`
         observacion: String
     }
     type Proyecto {
-        id: String!
+        idProyecto: String!
         nombreProyecto: String!
         objGeneral: String
         objEspecifico: String
