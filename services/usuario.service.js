@@ -1,7 +1,8 @@
 const Usuarios = require('../model/usuario.model');
 const Proyectos = require('../model/proyecto.model');
-const configAuth = require('../config/auth.config')
-
+const configAuth = require('../config/auth.config');
+const signIn=require('../controller/auth.controlador')
+const validarToken=require('../middleware/authjwt')
 let aes256 = require('aes256');
 
 const obtenerUsuarios = async () => await Usuarios.find({})
@@ -32,10 +33,17 @@ const crearUsuario = async (usuario) => {
     const { clave } = usuario;
             const nuevoUsuario = new Usuarios(usuario);
             const encryptedPlainText = aes256.encrypt(key, clave);
+            nuevoUsuario.id=nuevoUsuario._id;
             nuevoUsuario.clave = encryptedPlainText
             return nuevoUsuario.save()
                 .then(u => "Usuario creado")
                 .catch(err => console.log(err));
+}
+const login = async (correo,clave) => {
+    return signIn(correo,clave);
+}
+const ValidarToken = async (token) => {
+    return validarToken.validarToken(token);
 }
 
 //HU_004
@@ -61,5 +69,7 @@ module.exports = {
     obtenerMisPostulaciones,
     crearUsuario,
     obtenerUsuarios,
-    SetModificarUsuario
+    SetModificarUsuario,
+    login,
+    ValidarToken
 }

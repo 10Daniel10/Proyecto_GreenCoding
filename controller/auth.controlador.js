@@ -5,17 +5,17 @@ const jwt = require('jsonwebtoken')
 const authKey = configAuth.AUTH;
 const jwtKey = configAuth.JWT;
 
-const signIn = async (req, res) => {
+const signIn = async (correo,clave) => {
 
     try {
-        const usuario = await Usuario.findOne({ correo: req.body?.correo })
+        const usuario = await Usuario.findOne({ correo})
         if (!usuario) {
-            return res.status(401).json({ response: "Verifique usuario y contraseña" })
+            return {"value":"Verifique usuario y contraseña"} 
         }
 
         const claveDesencriptada = aes256.decrypt(authKey, usuario.clave);
-        if ( req.body?.clave !== claveDesencriptada ) {
-            return res.status(401).json({ response: "Verifique usuario y contraseña" })
+        if ( clave !== claveDesencriptada ) {
+            return {"value":"Verifique usuario y contraseña"}
         }
         
         const token = jwt.sign({
@@ -23,10 +23,10 @@ const signIn = async (req, res) => {
             estado: usuario.estado
         }, jwtKey, { expiresIn: 60 * 60 * 2 }) // 2 horas
 
-        res.status(200).json({ jwt: token })
+        return {"value":token}
     } catch (error) {
         console.log(error)
-        res.status(500).json({ response: "Contacte al administrador" })
+        return  {"value":"Contacte al administrador" }
     }
 }
 

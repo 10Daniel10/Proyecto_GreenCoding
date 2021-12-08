@@ -51,7 +51,7 @@ const agregarObservacion = async (idMiProyecto, idAvance, obs) => {
 
 
 const obtenerProyecto = async (idProyecto) => {
-    return await Proyectos.findOne({idProyecto}).populate("lider")
+    return await Proyectos.findOne({_id:idProyecto}).populate("lider")
         .populate("estudiantesInscritos.estudiante")
 }
 

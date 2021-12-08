@@ -29,9 +29,9 @@ const typeDefs = gql`
     }
     
     type Usuario {
-        id: String!
-        nombre: String!
-        correo: String!
+        id: String
+        nombre: String
+        correo: String
         tipo: TipoUsuario!
         estado: EstadoUsuario!
     }
@@ -53,7 +53,7 @@ const typeDefs = gql`
         observacion: String
     }
     type Proyecto {
-        idProyecto: String!
+        id: String!
         nombreProyecto: String!
         objGeneral: String
         objEspecifico: String
@@ -66,8 +66,18 @@ const typeDefs = gql`
         estudiantesInscritos: [estudianteInscrito]
         avances: [avance]
     }
+    type response{
+        value :String
+    }
+    type responsetoken{
+        value :String
+        perfil:String
+        estado:String
+        token:String
+    }
 
     type Query {
+        
         obtenerUsuarios : [Usuario]
         obtenerUsuario: Usuario
         obtenerProyectos: [Proyecto]
@@ -95,15 +105,17 @@ const typeDefs = gql`
         lider: String
     }
 
+
     input CreacionUsuario{
-    nombre: String
-    id:String
+    nombre: String 
     clave: String
     tipo:String
     correo: String
     }
 
     type Mutation {
+        ValidarToken(token:String):responsetoken
+        login(correo: String,clave :String) : response
         setEstadoUsuario(
             id: String!
             estado: String!

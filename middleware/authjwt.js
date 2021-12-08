@@ -2,51 +2,46 @@ const jwt = require('jsonwebtoken')
 const configAuth = require('../config/auth.config')
 const jwtKey = configAuth.JWT;
 
-const validarToken = (req, res, next) => {
-
-    const token = req.headers['authorization']
+const validarToken = (token) => {
 
     if (!token) {
-        return res.status(401).json({ response: "Token inválido" })
+        return {"value":"Token inválido" }
     }
 
     try {
         // vefificar jwt
         const data = jwt.verify(token, jwtKey)
         if (data) {
-            req.perfil = data.perfil
-            req.estado = data.estado
-            next();
-            return
+            //next();
+            return {"value":"Token válido","perfil":data.perfil,"estado":data.estado,"token":token }
         }
-        return res.status(401).json({ response: "Token inválido" })
+        return  {"value":"Token inválido" }
 
-    } catch (error) {
-        console.log( error )
-        return res.status(401).json( { response: "Error al autorizar" })
+    } catch (error) {  
+        return {"value":"Error al autorizar el token" }
     }
 
 
 
 }
 
-const admin = (req, res, next) => {
+const admin = (req, next) => {
     if ( req.estado !== "Autorizado" || req.perfil !== "Administrador" ){
-        return res.status(403).json( { response: "Permisos insuficientes" })
+        return {"value":"Permisos insuficientes" }
     }
     next();
 }
 
-const estudiante = (req, res, next) => {
+const estudiante = (req,next) => {
     if ( req.estado !== "Autorizado" || req.perfil !== "Estudiante" ){
-        return res.status(403).json( { response: "Permisos insuficientes" })
+        return {"value":"Permisos insuficientes" }
     }
     next();
 }
 
-const lider = (req, res, next) => {
+const lider = (req, next) => {
     if ( req.estado !== "Autorizado" || req.perfil !== "Lider" ){
-        return res.status(403).json( { response: "Permisos insuficientes" })
+        return {"value":"Permisos insuficientes" }
     }
     next();
 }

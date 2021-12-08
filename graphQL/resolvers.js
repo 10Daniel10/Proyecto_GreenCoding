@@ -1,13 +1,13 @@
 const { obtenerUsuarios, setEstadoUsuario, obtenerMisPostulaciones, obtenerEstudiantes,
-crearUsuario, SetModificarUsuario} = require('../services/usuario.service');
+crearUsuario, SetModificarUsuario,login,ValidarToken} = require('../services/usuario.service');
 const { obtenerProyectos,obtenerMisSolicitudes, obtenerMisProyectos, inscribirEstudiante, agregarObservacion, obtenerProyecto, setEstadoProyecto, setFaseProyecto,  SetCrearProyecto, obtenerProyectosLider, SetModificarProyecto
     ,InscribirmeProyecto,verAvances ,RegistrarAvances,ModificarAvances } = require('../services/proyecto.service');
 
-const { GraphQLDate } = require('graphql-iso-date');
+const { GraphQLDateTime } = require('graphql-iso-date');
 
 
 const customScalarResolver = {
-  Date: GraphQLDate
+  Date: GraphQLDateTime
 };
 
 
@@ -26,9 +26,12 @@ const resolvers = {
         obtenerProyectosLider: async (parent, args, context, info) => obtenerProyectosLider(args.lider),
         obtenerEstudiantes: async () => obtenerEstudiantes(),
         verAvances: async (parent, args, context, info) => verAvances(args.idProyecto,args.estudiante),
+        
     },
 
     Mutation: {
+        ValidarToken:async(parent, args, context, info)=>ValidarToken(args.token),
+        login:async(parent, args, context, info)=>login(args.correo,args.clave),
         setEstadoUsuario: async(parent, args, context, info) => setEstadoUsuario(args.id, args.estado),
         inscribirEstudiante: async (parent, args, context, info) => inscribirEstudiante(args.id, args.idMiProyecto),
         agregarObservacion: async (parent, args, context, info) => agregarObservacion(args.idMiProyecto, args.idAvance, args.obs),
