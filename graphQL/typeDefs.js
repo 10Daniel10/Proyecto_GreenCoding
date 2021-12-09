@@ -76,11 +76,18 @@ const typeDefs = gql`
         token:String
         id:ID!
     }
+    type user {
+        nombre: String
+        correo: String
+        clave: String
+        estado:String
+        tipo:String
+    }
 
     type Query {
         
         obtenerUsuarios : [Usuario]
-        obtenerUsuario: Usuario
+        obtenerUsuario(id :String): user
         obtenerProyectos: [Proyecto]
         obtenerProyecto(idProyecto: String!): Proyecto
         obtenerMisSolicitudes(id: String): [Proyecto]

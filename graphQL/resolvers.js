@@ -1,5 +1,5 @@
 const { obtenerUsuarios, setEstadoUsuario, obtenerMisPostulaciones, obtenerEstudiantes,
-crearUsuario, SetModificarUsuario,login,ValidarToken} = require('../services/usuario.service');
+crearUsuario, SetModificarUsuario,login,ValidarToken,obtenerUsuario} = require('../services/usuario.service');
 const { obtenerProyectos,obtenerMisSolicitudes, obtenerMisProyectos, inscribirEstudiante, agregarObservacion, obtenerProyecto, setEstadoProyecto, setFaseProyecto,  SetCrearProyecto, obtenerProyectosLider, SetModificarProyecto
     ,InscribirmeProyecto,verAvances ,RegistrarAvances,ModificarAvances } = require('../services/proyecto.service');
 
@@ -17,6 +17,7 @@ const resolvers = {
     Date: customScalarResolver,
 
     Query: {
+        obtenerUsuario: async (parent, args, context, info) => obtenerUsuario(args.id),
         obtenerUsuarios: async () => obtenerUsuarios(),
         obtenerProyectos: async () => obtenerProyectos(),
         obtenerMisSolicitudes: async (parent, args, context, info) => obtenerMisSolicitudes(args.id),

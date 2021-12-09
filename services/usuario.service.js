@@ -4,8 +4,15 @@ const configAuth = require('../config/auth.config');
 const signIn=require('../controller/auth.controlador')
 const validarToken=require('../middleware/authjwt')
 let aes256 = require('aes256');
+var mongoose = require('mongoose');
 
 const obtenerUsuarios = async () => await Usuarios.find({})
+const obtenerUsuario = async (id) => {
+    const t=await Usuarios.find({_id:mongoose.Types.ObjectId(id)})
+
+    return t[0]
+}
+
 
 //HU_010
 const obtenerEstudiantes = async () => await Usuarios.find({tipo:"Estudiante"})
@@ -71,5 +78,6 @@ module.exports = {
     obtenerUsuarios,
     SetModificarUsuario,
     login,
-    ValidarToken
+    ValidarToken,
+    obtenerUsuario
 }
