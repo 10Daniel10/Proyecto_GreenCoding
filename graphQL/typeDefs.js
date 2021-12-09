@@ -74,7 +74,7 @@ const typeDefs = gql`
         perfil:String
         estado:String
         token:String
-        id:!ID
+        id:ID!
     }
 
     type Query {
