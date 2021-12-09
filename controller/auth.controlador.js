@@ -21,7 +21,7 @@ const signIn = async (correo,clave) => {
         const token = jwt.sign({
             perfil: usuario.tipo,
             estado: usuario.estado,
-            id:usuario.id
+            id:usuario._id
         }, jwtKey, { expiresIn: 60 * 60 * 2 }) // 2 horas
 
         return {"value":token}
