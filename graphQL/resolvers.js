@@ -26,11 +26,12 @@ const resolvers = {
         obtenerProyecto: async (parent, args, context, info) => obtenerProyecto(args.idProyecto),
         obtenerProyectosLider: async (parent, args, context, info) => obtenerProyectosLider(args.lider),
         obtenerEstudiantes: async () => obtenerEstudiantes(),
-        verAvances: async (parent, args, context, info) => verAvances(args.idProyecto,args.estudiante),
+        
         
     },
 
     Mutation: {
+        verAvances: async (parent, args, context, info) => verAvances(args.idProyecto,args.estudiante),
         ValidarToken:async(parent, args, context, info)=>ValidarToken(args.token),
         login:async(parent, args, context, info)=>login(args.correo,args.clave),
         setEstadoUsuario: async(parent, args, context, info) => setEstadoUsuario(args.id, args.estado),

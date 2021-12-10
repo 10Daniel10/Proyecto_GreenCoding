@@ -95,11 +95,7 @@ const typeDefs = gql`
         obtenerMisProyectos(id: String): [Proyecto]
         obtenerProyectosLider(lider: String!): [Proyecto]
         obtenerEstudiantes : [Usuario]
-        verAvances(
-            idProyecto: String!
-            estudiante:String!
 
-        ):[String]
     }
 
     input CreacionProyecto {
@@ -153,8 +149,8 @@ const typeDefs = gql`
         ):String
 
         verAvances(
-            idProyecto: ID!,
-            estudiante:ID!
+            idProyecto: String!
+            estudiante:String!
 
         ):[String]
 

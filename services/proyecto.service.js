@@ -134,6 +134,7 @@ const SetModificarProyecto = async (lider1, idProyecto, nombreProyecto1, objGene
 
 //HU_0
 const verAvances = async (idProyecto, estudiante) => {
+   
     let comprobarProyecto = await Proyectos.find({ _id: idProyecto }).then(function (res) {
         
         if (typeof res[0].estudiantesInscritos.length !== 0) {
@@ -165,7 +166,7 @@ const verAvances = async (idProyecto, estudiante) => {
         })
     })
     }else{
-        return "no esta inscrito"
+        return ["no registra avances asegurece de que esta inscrito y en estado activo "]
     }
 }
 
