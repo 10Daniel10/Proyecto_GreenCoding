@@ -36,10 +36,11 @@ const typeDefs = gql`
         estado: EstadoUsuario!
     }
 
+
     type estudianteInscrito {
         id: ID!
-        estudiante: String
-        proyecto: String
+        estudiante: Usuario
+        proyecto: Proyecto
         estado: Estado
         fechaIngreso: Date
         fechaEgreso: Date
@@ -129,11 +130,11 @@ const typeDefs = gql`
         agregarObservacion (idMiProyecto: String, idAvance: String, obs: String ) : String
 
         setEstadoProyecto( 
-            idProyecto: String!
+            id: String!
             estado: String! 
         ): String
         setFaseProyecto(
-            idProyecto: String!
+            id: String!
             fase: String!
         ): String
         SetCrearProyecto(

@@ -7,13 +7,13 @@ const estudianteInscrito = new Schema({
         require: true,
         unique: true
     },*/
-    estudiante: {
-        type: String,
-        ref:"usuarios"
-    },
     proyecto: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: "proyectos"
+    },
+    estudiante: {
+        type: Schema.Types.ObjectId,
+        ref:"usuarios"
     },
     estado: {
         type: String,

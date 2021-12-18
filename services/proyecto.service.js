@@ -44,7 +44,7 @@ const obtenerMisProyectos = async (id) => {
 
 //HU_018
 const agregarObservacion = async (idMiProyecto, idAvance, obs) => {
-    return Proyectos.updateOne({'idProyecto':idMiProyecto, 'avances._id': idAvance}, { $set:{'avances.$.observacion': obs}})
+    return Proyectos.updateOne({'_id':idMiProyecto, 'avances._id': idAvance}, { $set:{'avances.$.observacion': obs}})
                 .then(u => "Observación agregada exitosamente")
                 .catch(err => "No se pudo agregar la observacion");
 }
@@ -61,24 +61,24 @@ const obtenerProyectosLider = async (lider1) => {
 }
 
 //HU_007 y HU_008
-const setEstadoProyecto = async (idProyecto, estado) => {
-    console.log(`Se está modificando el proyecto con id: ${idProyecto}`);
-    const proyecto = await Proyectos.findOne({idProyecto});
+const setEstadoProyecto = async (id, estado) => {
+    console.log(`Se está modificando el proyecto con id: ${id}`);
+    const proyecto = await Proyectos.findOne({_id:id});
     if (proyecto){
         if (proyecto.estado === "Inactivo" && proyecto.fase === "Nulo" && estado === "Activo") {
             // Aprobación del proyecto
-            return Proyectos.updateOne({idProyecto}, {$set:{estado, fase: "Iniciado", fechaInicio: new Date()}})
+            return Proyectos.updateOne({_id:id}, {$set:{estado, fase: "Iniciado", fechaInicio: new Date()}})
                 .then(res => `Proyecto aprobado e iniciado`)
                 .catch(err => `Falló el cambio de estado: ${err}`)
         } else if (proyecto.estado === "Inactivo" && proyecto.fase !== "Terminado" && estado === "Activo") {
             // Reactivar proyecto
-            return Proyectos.updateOne({idProyecto}, {estado})
+            return Proyectos.updateOne({_id:id}, {estado})
                 .then(res => `Proyecto reactivado`)
                 .catch(err => `Falló el cambio de estado: ${err}`)
         } else if (proyecto.estado === "Activo" && estado === "Inactivo"){
             if(proyecto.fase === "Iniciado" || proyecto.fase === "EnDesarrollo"){
                 // Inactivación de proyecto
-                return Proyectos.updateOne({idProyecto: idProyecto}, {$set:{estado: estado, 'estudiantesInscritos.$[obj].fechaEgreso': new Date()}},{multi: true, arrayFilters:[{'obj.fechaEgreso':{$exists: false}, 'obj.estado': 'Activo'}]})
+                return Proyectos.updateOne({_id: id}, {$set:{estado: estado, 'estudiantesInscritos.$[obj].fechaEgreso': new Date()}},{multi: true, arrayFilters:[{'obj.fechaEgreso':{$exists: false}, 'obj.estado': 'Activo'}]})
                     .then(res => `Proyecto desactivado`)
                     .catch(err => `Falló el cambio de estado: ${err}`)
             } else {
@@ -94,13 +94,13 @@ const setEstadoProyecto = async (idProyecto, estado) => {
 }
 
 //HU_009
-const setFaseProyecto = async (idProyecto, fase) => {
-    console.log(`Se está modificando el proyecto con id: ${idProyecto}`);
-    const proyecto = await Proyectos.findOne({idProyecto});
+const setFaseProyecto = async (id, fase) => {
+    console.log(`Se está modificando el proyecto con id: ${id}`);
+    const proyecto = await Proyectos.findOne({_id:id});
     if ( proyecto ) {
         if (proyecto.estado === "Activo" && proyecto.fase === "EnDesarrollo" && fase === "Terminado") {
             // Proyecto terminado
-            return Proyectos.updateOne({idProyecto}, {$set:{fase, estado:"Inactivo", fechaTermina: new Date()}})
+            return Proyectos.updateOne({_id:id}, {$set:{fase, estado:"Inactivo", fechaTermina: new Date()}})
                 .then(res => `Proyecto terminado`)
                 .catch(err => `Falló el cambio de fase: ${err}`)
         }
