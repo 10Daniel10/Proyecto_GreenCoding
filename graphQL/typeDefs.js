@@ -124,7 +124,7 @@ const typeDefs = gql`
         setEstadoUsuario(
             id: String!
             estado: String!
-        ): String
+        ): String 
         
         inscribirEstudiante (id: String, idMiProyecto: String): String
         agregarObservacion (idMiProyecto: String, idAvance: String, obs: String ) : String
